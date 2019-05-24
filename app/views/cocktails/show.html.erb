@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="p-3 mt-3">
+    <h1 class="text-center pb-3"><%= @cocktail.name %></h1>
+    <div class="img-details d-flex">
+      <img src="https://cdn.pixabay.com/photo/2018/07/16/19/01/smoothie-3542609_960_720.jpg" alt="" class="">
+      <div class="details pl-5 pt-3">
+        <p><strong>Rating: </strong> <%= @avg_rating_dec %>
+          <% @average_rating.floor.times do %>
+            <i class="fas fa-star"></i>
+          <% end %>
+          <% if (@average_rating / 0.5).to_i.odd? %>
+            <i class="fas fa-star-half-alt"></i>
+            <% (5 - @average_rating).floor.times do %>
+              <i class="far fa-star"></i>
+            <% end %>
+          <% else %>
+            <% (5 - @average_rating).floor.times do %>
+              <i class="far fa-star"></i>
+            <% end %>
+          <% end %>
+        (<%= @no_of_reviews %>)</p>
+        <h3>Ingredients</h3>
+        <ul>
+          <% @cocktail.doses.each do |dose| %>
+          <li>
+            <pre><%= dose.description %>  <%= dose.ingredient.name %></pre>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom-info d-flex mt-3">
+      <div class="all-reviews my-3 pl-3 mr-3">
+        <div class="reviews">
+          <h3>Reviews</h3>
+          <% @cocktail.reviews.each do |review| %>
+          <div class="border p-3 my-3 rounded review-card">
+            <p><strong>Rating: </strong>
+              <% review.rating.times do %>
+                <i class="fas fa-star"></i>
+              <% end %>
+              <% (5 - review.rating).times do %>
+                <i class="far fa-star"></i>
+              <% end %>
+            </p>
+            <p><%= review.content %></p>
+          </div>
+          <% end %>
+        </div>
+        <div class="my-5">
+          <h3>New Review</h3>
+          <%= simple_form_for [@cocktail, @review] do |f| %>
+            <div class="form-inputs">
+              <%= f.input :content %>
+              <%= f.input :rating, input_html: { min: '0', max: '5' }%>
+              <div class="mb-4">
+                <i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i>
+              </div>
+            </div>
+            <div class="form-actions">
+              <%= f.button :submit, class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="dose-form ml-3 my-3">
+        <h3>New Ingredient</h3>
+        <%= simple_form_for [@cocktail, @dose] do |f| %>
+          <div class="form-inputs">
+            <%= f.input :description %>
+            <%= f.association :ingredient, :collection => Ingredient.all.order(:name), :prompt => "Choose an Ingredient" %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.querySelector("#review_rating").style.display = "none";
+  let stars = document.querySelectorAll(".star_rating");
+  stars.forEach((element, index) => {
+    element.addEventListener("click", (event) => {
+      stars.forEach((item, itemIndex) => {
+        item.classList.add("far");;
+        if (itemIndex <= index) {
+          item.classList.remove("far");;
+          item.classList.add("fas");
+          document.querySelector("#review_rating").value = itemIndex + 1;
+        }
+      });
+    });
+  });
+</script>
+

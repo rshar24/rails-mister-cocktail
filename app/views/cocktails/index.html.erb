@@ -1,0 +1,19 @@
+<div class="banner mb-4" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://havana-club.com/en-ww/sites/default/files/cocktail/Canchanchara-Cocktail-recipe-Havana-club.jpg);">
+  <div class="container">
+    <h1 class="py-4">Enjoy your favorite cocktails at home</strong>!</h1>
+    <a class="btn btn-secondary btn-lg" href="#all-cocktails">Explore</a>
+  </div>
+</div>
+<div class="container">
+  <h1 class="mb-4" id="all-cocktails">All Cocktails</h1>
+  <div class="cards mb-5">
+  <% @cocktails.each do |cocktail| %>
+    <%= link_to cocktail_path(cocktail), { class: "nounderline" } do %>
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://source.unsplash.com/350x250/?cocktail)">
+      <p><%= cocktail.name %></p>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+
