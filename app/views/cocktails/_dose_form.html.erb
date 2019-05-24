@@ -1,0 +1,8 @@
+<div class="my-3">
+  <input type="text" name="quantity[]">
+  <select name="ingredient[]">
+  <% Ingredient.all.order(:name).each do |ingredient| %>
+    <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
+  <% end %>
+  </select>
+</div>

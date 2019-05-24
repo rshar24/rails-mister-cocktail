@@ -18,9 +18,18 @@ class CocktailsController < ApplicationController
   end
 
   def create
+    # raise
     @cocktail = Cocktail.new(cocktail_params)
     if @cocktail.save
+      params[:quantity].each_with_index do |ing, index|
+        @dose = Dose.new(description: ing)
+        @ingredient = Ingredient.find(params[:ingredient][index])
+        @dose.ingredient = @ingredient
+        @dose.cocktail = @cocktail
+        @dose.save
+      end
       redirect_to cocktail_path(@cocktail)
+      # raise
     else
       render :new
     end

@@ -47,20 +47,39 @@
           </div>
           <% end %>
         </div>
-        <div class="my-5">
-          <h3>New Review</h3>
-          <%= simple_form_for [@cocktail, @review] do |f| %>
-            <div class="form-inputs">
-              <%= f.input :content %>
-              <%= f.input :rating, input_html: { min: '0', max: '5' }%>
-              <div class="mb-4">
-                <i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+          Add Review
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">New Review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+
+                <%= simple_form_for [@cocktail, @review] do |f| %>
+                  <div class="form-inputs">
+                    <%= f.input :content %>
+                    <%= f.input :rating, input_html: { min: '0', max: '5' }%>
+                    <div class="mb-4">
+                      <i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i><i class="far fa-star star_rating"></i>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <%= f.button :submit, class: "btn btn-primary" %>
+                  </div>
+                <% end %>
+
               </div>
             </div>
-            <div class="form-actions">
-              <%= f.button :submit, class: "btn btn-primary" %>
-            </div>
-          <% end %>
+          </div>
         </div>
       </div>
       <div class="dose-form ml-3 my-3">
@@ -81,6 +100,7 @@
 </div>
 
 
+
 <script>
   document.querySelector("#review_rating").style.display = "none";
   let stars = document.querySelectorAll(".star_rating");
@@ -97,4 +117,3 @@
     });
   });
 </script>
-
