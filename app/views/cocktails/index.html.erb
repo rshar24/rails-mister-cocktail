@@ -5,11 +5,11 @@
   </div>
 </div>
 <div class="container">
-  <h1 class="mb-4" id="all-cocktails">All Cocktails</h1>
+  <h1 class="mb-4" id="all-cocktails">All Cock  tails</h1>
   <div class="cards mb-5">
   <% @cocktails.each do |cocktail| %>
     <%= link_to cocktail_path(cocktail), { class: "nounderline" } do %>
-      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://source.unsplash.com/350x250/?cocktail)">
+      <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('<%= cl_image_path cocktail.photo %>')">
       <p><%= cocktail.name %></p>
       </div>
     <% end %>
